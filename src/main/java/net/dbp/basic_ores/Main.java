@@ -1,4 +1,4 @@
-package net.fabricmc.example;
+package net.dbp.basic_ores;
 
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -26,50 +26,53 @@ import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.GenerationStep;
 
-import org.lwjgl.system.CallbackI.J;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExampleMod implements ModInitializer {
+public class Main implements ModInitializer {
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("basic-ores:resource-pack");
 	public static final Logger LOGGER = LoggerFactory.getLogger("modid");
 	public static final String modid = "basic-ores";
-	public static final String[] basicoreitems = {"ingot", "nugget"};
-	public static final String[] vanillaoreitems = {"plate", "gear", "dust"};
-	public static final String[] basicoreblocks = {"ore", "block"};
-	public static final String[] basicoretags = {"ingot_to_nugget", "ore_to_ingot"};
-	public static final String[] largetools = {"hammer", "excavator"};
-	public static final String[] tools = {"axe", "hoe", "pickaxe", "shovel", "sword", "shears"};
+	public static final String[] vanillametal = {"ingot", "nugget"};
+	public static final String[] modmetal = {"plate", "gear", "dust"};
+	public static final String[] metal = ArrayUtils.addAll(vanillametal, modmetal);
+	public static final String[] vanillablocks = {"ore", "block"};
+	public static final String[] vanillatools = {"axe", "hoe", "pickaxe", "shovel", "sword"};
+	public static final String[] modtools = {"shears", "shield", "bow", "fishingrod", "hammer", "excavator", "greatsword"};
+	public static final String[] tools = ArrayUtils.addAll(vanillatools, modtools);
+	public static final String[] armor = {"helmet", "chestplate", "leggings", "boots"};
 	public static final HashSet<String> shears = new HashSet<>();
 
 	@Override
 	public void onInitialize() {
-		Mat nickel = new Mat("nickel").addItemParts(vanillaoreitems, basicoreitems).addBlockPart(basicoreblocks).addTag(basicoretags);
-		Mat tin = new Mat("tin").addItemParts(vanillaoreitems, basicoreitems, tools).addTag(basicoretags).addBlockPart(basicoreblocks);
-		Mat tungsten = new Mat("tungsten").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart(basicoreblocks);
-		Mat titanium = new Mat("titanium").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart(basicoreblocks);
-		Mat ruby = new Mat("ruby").addItemPart("gem", "dust").addBlockPart(basicoreblocks);
-		Mat sapphire = new Mat("sapphire").addItemPart("gem", "dust").addBlockPart(basicoreblocks);
+		Mat nickel = new Mat("nickel").addItemParts(metal, tools, armor).addBlockPart(vanillablocks).addTag("ingot_to_nugget", "ore_to_ingot");
+		Mat tin = new Mat("tin").addItemParts(metal, tools, armor).addTag("ingot_to_nugget", "ore_to_ingot").addBlockPart(vanillablocks);
+		Mat tungsten = new Mat("tungsten").addItemParts(metal, tools, armor).addTag("ingot_to_nugget", "ore_to_ingot").addBlockPart(vanillablocks);
+		Mat titanium = new Mat("titanium").addItemParts(metal, tools, armor).addTag("ingot_to_nugget", "ore_to_ingot").addBlockPart(vanillablocks);
+		Mat ruby = new Mat("ruby").addItemPart("gem", "dust").addBlockPart(vanillablocks);
+		Mat sapphire = new Mat("sapphire").addItemPart("gem", "dust").addBlockPart(vanillablocks);
 		Mat galena = new Mat("galena").addBlockPart("ore");
-		Mat lead = new Mat("lead").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat silver = new Mat("silver").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat platinum = new Mat("platinum").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat gold = new Mat("gold").addItemParts(vanillaoreitems);
-		Mat copper = new Mat("copper").addItemParts(vanillaoreitems);
-		Mat iron = new Mat("iron").addItemParts(vanillaoreitems, largetools);
-		Mat bronze = new Mat("bronze").addItemParts(vanillaoreitems, basicoreitems, tools, largetools).addTag(basicoretags).addBlockPart("block");
-		Mat brass = new Mat("brass").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat wroughtiron = new Mat("wroughtiron").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat cobalt = new Mat("cobalt").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat chromium = new Mat("chromium").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat invar = new Mat("invar").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat electrum = new Mat("electrum").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat aluminium = new Mat("aluminium").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat steel = new Mat("steel").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat tungstensteel = new Mat("tungstensteel").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat zinc = new Mat("zinc").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat osmium = new Mat("osmium").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
-		Mat iridium = new Mat("iridium").addItemParts(vanillaoreitems, basicoreitems).addTag(basicoretags).addBlockPart("block");
+		Mat nikolite = new Mat("nikolite").addItemPart("dust").addBlockPart("ore");
+		Mat lead = new Mat("lead").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat silver = new Mat("silver").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat platinum = new Mat("platinum").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat gold = new Mat("gold").addItemParts(modmetal, modtools);
+		Mat copper = new Mat("copper").addItemParts(modmetal, tools);
+		Mat iron = new Mat("iron").addItemPart("plate", "gear", "dust", "shield", "bow", "fishingrod", "hammer", "excavator", "greatsword");
+		Mat bronze = new Mat("bronze").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat brass = new Mat("brass").addItemParts(metal).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat wroughtiron = new Mat("wroughtiron").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat cobalt = new Mat("cobalt").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat chromium = new Mat("chromium").addItemParts(metal).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat invar = new Mat("invar").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat electrum = new Mat("electrum").addItemParts(metal).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat aluminium = new Mat("aluminium").addItemParts(metal).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat steel = new Mat("steel").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat tungstensteel = new Mat("tungstensteel").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat zinc = new Mat("zinc").addItemParts(metal).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat osmium = new Mat("osmium").addItemParts(metal, tools, armor).addTag("ingot_to_nugget").addBlockPart("block");
+		Mat iridium = new Mat("iridium").addItemParts(metal).addTag("ingot_to_nugget").addBlockPart("block");
 		
 		registerMat(nickel);
 		registerMat(tin);
@@ -97,6 +100,7 @@ public class ExampleMod implements ModInitializer {
 		registerMat(zinc);
 		registerMat(osmium);
 		registerMat(iridium);
+		registerMat(nikolite);
 
 		registerOre("nickel_ore_overworld", BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.STONE_ORE_REPLACEABLES, nickel.blockPartsBlocks.get("ore"), 9, 20, -12, 64);
 		registerOre("tin_ore_nether", BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.NETHERRACK, tin.blockPartsBlocks.get("ore"), 9, 40, 10, 112);

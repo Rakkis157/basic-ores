@@ -1,38 +1,42 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
-  "version": "${version}",
+  "id": "basic-ores",
+  "version": "0.0.1",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Basic Ores",
+  "description": "Basic Ores Mod For Fabric!",
   "authors": [
-    "Me!"
+    "DbpGaming"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/dbpgaming/fabric-mods"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "N/A",
+  "icon": "assets/basic-ores/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.dbp.basic_ores.Main"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "basic-ores.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "java": ">=17"
+    "java": ">=17",
+    "advanced_runtime_resource_pack": "*",
+    "magna": "*",
+    "fabricshieldlib": "*",
+    "bclib": "*"
   },
   "suggests": {
-    "another-mod": "*"
+    "ferritecore": "*"
   }
 }
