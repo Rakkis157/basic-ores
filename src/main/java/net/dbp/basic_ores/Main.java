@@ -30,6 +30,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+
 public class Main implements ModInitializer {
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("basic-ores:resource-pack");
 	public static final Logger LOGGER = LoggerFactory.getLogger("modid");
@@ -46,6 +49,7 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		AutoConfig.register(BasicConfig.class, Toml4jConfigSerializer::new);
 		Mat nickel = new Mat("nickel").addItemParts(metal, tools, armor).addBlockPart(vanillablocks).addTag("ingot_to_nugget", "ore_to_ingot");
 		Mat tin = new Mat("tin").addItemParts(metal, tools, armor).addTag("ingot_to_nugget", "ore_to_ingot").addBlockPart(vanillablocks);
 		Mat tungsten = new Mat("tungsten").addItemParts(metal, tools, armor).addTag("ingot_to_nugget", "ore_to_ingot").addBlockPart(vanillablocks);
