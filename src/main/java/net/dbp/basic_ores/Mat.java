@@ -4,9 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
-
-import draylar.gateofbabylon.item.*;
+//import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
+//import draylar.gateofbabylon.item.*;
 import draylar.magna.item.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
@@ -165,7 +164,7 @@ public class Mat {
 				} else if (part == "bow") {
 					this.itemParts.put(part, new BowItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				} else if (part == "shield") {
-					this.itemParts.put(part, new FabricShieldItem(new Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
+					//.itemParts.put(part, new FabricShieldItem(new Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
 				} else if (part == "helmet") {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.MISC)));
 				} else if (part == "chestplate") {
@@ -175,21 +174,21 @@ public class Mat {
 				} else if (part == "boots") {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.MISC)));
 				} else if (part == "dagger") {
-					this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "spear") {
-					this.itemParts.put(part, new SpearItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new SpearItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "broadsword") {
-					this.itemParts.put(part, new BroadswordItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new BroadswordItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "rapier") {
-					this.itemParts.put(part, new RapierItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new RapierItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "haladie") {
-					this.itemParts.put(part, new HaladieItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new HaladieItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "waraxe") {
-					this.itemParts.put(part, new WaraxeItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new WaraxeItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "katana") {
-					this.itemParts.put(part, new KatanaItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new KatanaItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "boomerang") {
-					this.itemParts.put(part, new BoomerangItem(new Settings().group(ItemGroup.MISC), new ToolMat()));
+					//this.itemParts.put(part, new BoomerangItem(new Settings().group(ItemGroup.MISC), new ToolMat()));
 				} else {
 					this.itemParts.put(part, new Item(new Settings().group(ItemGroup.MISC)));
 				}

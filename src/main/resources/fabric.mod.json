@@ -33,7 +33,6 @@
     "java": ">=17",
     "advanced_runtime_resource_pack": "*",
     "magna": "*",
-    "fabricshieldlib": "*",
     "bclib": "*"
   },
   "suggests": {

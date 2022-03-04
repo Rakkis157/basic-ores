@@ -10,8 +10,7 @@ import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.loot.JPool;
 import net.devtech.arrp.json.loot.JLootTable.*;
 
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 import net.fabricmc.api.ModInitializer;
@@ -23,7 +22,7 @@ import net.minecraft.item.Items;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.*;
-import net.minecraft.world.gen.decorator.*;
+import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.*;
 
@@ -194,11 +193,12 @@ public class Main implements ModInitializer {
 	}
 
 	public void registerOre(String name, Predicate<BiomeSelectionContext> predicate, RuleTest replace, Block block, Integer vein_size, Integer veins_per_chunk, Integer min_height, Integer max_height){
-		ConfiguredFeature<?, ?> ORE_FEATURE = Feature.ORE.configure(new OreFeatureConfig(replace,block.getDefaultState(), vein_size));
-		PlacedFeature ORE_FEATURE_PLACED = ORE_FEATURE.withPlacement(CountPlacementModifier.of(veins_per_chunk), SquarePlacementModifier.of(), HeightRangePlacementModifier.uniform(YOffset.fixed(min_height), YOffset.fixed(max_height)));	
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE,	new Identifier(modid, name), ORE_FEATURE);
-		Registry.register(BuiltinRegistries.PLACED_FEATURE, new Identifier(modid, name), ORE_FEATURE_PLACED);
-		BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(modid, name)));
+//		ConfiguredFeature<?, ?> ORE_FEATURE = Feature.ORE.configure(new OreFeatureConfig(replace,block.getDefaultState(), vein_size));
+//		ConfiguredFeature<OreFeatureConfig, ?> ORE_FEATURE = new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(replace,block.getDefaultState(), vein_size));
+//		PlacedFeature ORE_FEATURE_PLACED = ORE_FEATURE.withPlacement(CountPlacementModifier.of(veins_per_chunk), SquarePlacementModifier.of(), HeightRangePlacementModifier.uniform(YOffset.fixed(min_height), YOffset.fixed(max_height)));	
+//		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE,	new Identifier(modid, name), ORE_FEATURE);
+//		Registry.register(BuiltinRegistries.PLACED_FEATURE, new Identifier(modid, name), ORE_FEATURE_PLACED);
+//		BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(modid, name)));
 	}
 
 	public void registerItem(Item item, String name){
