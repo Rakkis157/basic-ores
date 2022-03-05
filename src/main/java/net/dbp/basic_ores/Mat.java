@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
-//import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
+import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
 //import draylar.gateofbabylon.item.*;
 import draylar.magna.item.*;
 import net.minecraft.block.*;
@@ -158,7 +158,7 @@ public class Mat {
 				} else if (part == "bow") {
 					this.itemParts.put(part, new BowItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				} else if (part == "shield") {
-					//.itemParts.put(part, new FabricShieldItem(new Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
+					itemParts.put(part, new FabricShieldItem(new Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
 				} else if (part == "helmet") {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.MISC)));
 				} else if (part == "chestplate") {

@@ -38,6 +38,7 @@ repositories {
             includeGroup "com.github.Draylar"
             includeGroup "com.github.Draylar.omega-config"
 			includeGroup "com.github.CrimsonDawn45"
+			includeGroup "com.github.Chocohead"
         }
 	}
 	maven {
@@ -66,7 +67,7 @@ dependencies {
 	modImplementation "net.devtech:arrp:0.+"
 	modImplementation "com.github.Draylar:magna:1.7.0-1.18"
 	//modImplementation "curse.maven:bclib-495191:3637567"
-	//modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:v1.5.2-1.18"
+	modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:v1.5.3-1.18"
 	modImplementation "me.shedaniel.cloth:cloth-config-fabric:6.0.42"
 	//modImplementation "curse.maven:gateofbabylon-407500:3452626"
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:8.+"
