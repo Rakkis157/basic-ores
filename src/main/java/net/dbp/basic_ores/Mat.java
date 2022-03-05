@@ -14,7 +14,8 @@ import net.minecraft.item.Item.Settings;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import ru.bclib.items.tool.*;
+import net.dbp.basic_ores.tools.*;
+//import ru.bclib.items.tool.*;
 
 public class Mat {
     public final HashMap<String, Item> itemParts = new HashMap<>();
@@ -148,17 +149,17 @@ public class Mat {
 				} else if (part == "excavator") {
 					this.itemParts.put(part, new ExcavatorItem(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "axe") {
-					this.itemParts.put(part, new BaseAxeItem(new ToolMat(), 6, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new axe(new ToolMat(), 6, -3.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "hoe") {
-					this.itemParts.put(part, new BaseHoeItem(new ToolMat(), 0, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new hoe(new ToolMat(), 0, -3.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "pickaxe") {
-					this.itemParts.put(part, new BasePickaxeItem(new ToolMat(), 1, -2.8f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new pick(new ToolMat(), 1, -2.8f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "shovel") {
-					this.itemParts.put(part, new BaseShovelItem(new ToolMat(), 1.5f, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new shovel(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "sword") {
-					this.itemParts.put(part, new BaseSwordItem(new ToolMat(), 3, -2.4f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "shears") {
-					this.itemParts.put(part, new BaseShearsItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
+					this.itemParts.put(part, new shear(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				} else if (part == "fishingrod") {
 					this.itemParts.put(part, new FishingRodItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				} else if (part == "bow") {

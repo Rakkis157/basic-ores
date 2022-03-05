@@ -169,12 +169,22 @@ public class Main implements ModInitializer {
 
 		if(mat.itemParts.containsKey("ingot")){
 			if (mat.itemParts.containsKey("nugget")){
-				RESOURCE_PACK.addRecipe(new Identifier("arrp", mat.name+"_ingot_to_nugget"), JRecipe.shapeless(JIngredients.ingredients().add(JIngredient.ingredient().item(mat.itemParts.get("ingot"))), JResult.itemStack(mat.itemParts.get("nugget"), 9)));
-				RESOURCE_PACK.addRecipe(new Identifier("arrp", mat.name+"_nugget_to_ingot"), JRecipe.shaped(JPattern.pattern("NNN", "NNN", "NNN"), JKeys.keys().key("N", JIngredient.ingredient().item(mat.itemParts.get("nugget"))), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
+				RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_ingot_to_nugget"), JRecipe.shapeless(JIngredients.ingredients().add(JIngredient.ingredient().item(mat.itemParts.get("ingot"))), JResult.itemStack(mat.itemParts.get("nugget"), 9)));
+				RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_nugget_to_ingot"), JRecipe.shaped(JPattern.pattern("NNN", "NNN", "NNN"), JKeys.keys().key("N", JIngredient.ingredient().item(mat.itemParts.get("nugget"))), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
 			}
 
 			if (mat.blockPartsItems.containsKey("ore")){
-				RESOURCE_PACK.addRecipe(new Identifier("arrp", mat.name+"_ore_to_ingot"), JRecipe.smelting(JIngredient.ingredient().item(mat.blockPartsItems.get("ore")), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
+				RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_ore_to_ingot"), JRecipe.smelting(JIngredient.ingredient().item(mat.blockPartsItems.get("ore")), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
+			}
+
+			if (mat.blockPartsItems.containsKey("block")){
+				if (mat.itemParts.containsKey("excavator")){
+					RESOURCE_PACK.addRecipe(new Identifier("arrp", mat.name+"_excavator"), 
+					JRecipe.shaped(JPattern.pattern(" B ", "BSB", " S "), JKeys.keys()
+						.key("b", JIngredient.ingredient().item(mat.blockPartsItems.get("block")))
+						.key("s", JIngredient.ingredient().item(Items.STICK)),
+						JResult.itemStack(mat.itemParts.get("excavator"), 1)));
+				}
 			}
 		}
 

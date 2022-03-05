@@ -32,8 +32,7 @@
     "minecraft": "1.18.x",
     "java": ">=17",
     "advanced_runtime_resource_pack": "*",
-    "magna": "*",
-    "bclib": "*"
+    "magna": "*"
   },
   "suggests": {
     "ferritecore": "*"
