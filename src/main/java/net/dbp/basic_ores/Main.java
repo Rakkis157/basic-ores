@@ -129,6 +129,7 @@ public class Main implements ModInitializer {
 			}
 			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> mat.color, set.getValue());
 			RESOURCE_PACK.addTag(new Identifier("c:items/"+mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
+			RESOURCE_PACK.addTag(new Identifier("c:items/"+set.getKey()+"s/"+mat.name), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
 		}
 
 		for (Map.Entry<String, Item> set : mat.blockPartsItems.entrySet()) {
