@@ -36,13 +36,13 @@ public class Main implements ModInitializer {
 	public static final boolean fabricShieldLibCompat = FabricLoader.getInstance().isModLoaded("fabricshieldlib");
 
 	public static final String[] vanilla = {"plate", "gear", "dust"};
-	public static final String[] metal = {"ingot", "nugget", "raw_ore", "plate", "gear", "dust"};
+	public static final String[] metal = {"ingot", "nugget", "raw_ore", "plate", "gear", "dust", "wire", "can", "large_plate", "tube"};
 	public static final String[] gem = {"gem", "dust"};
-	public static final String[] ore = {"ore", "block"};
+	public static final String[] ore = {"ore", "ore_gravel", "block"};
 	public static final String[] block = {"block"};
 	public static String[] tools = {
 		"axe", "hoe", "pickaxe", "shovel", "sword", "shear", "shield", "bow", "fishingrod", "hammer", "excavator", "helmet", "chestplate", "legging", "boot",
-		"dagger", "spear", "broadsword", "rapier", "haladie", "waraxe", "katana", "boomerang"
+		"spanner", "dagger", "spear", "broadsword", "rapier", "haladie", "waraxe", "katana", "boomerang"
 	};
 	public static final HashSet<String> shears = new HashSet<>();
 	public static final HashSet<String> mattags = new HashSet<>();
@@ -134,7 +134,7 @@ public class Main implements ModInitializer {
 		for (Map.Entry<String, Item> set : mat.blockPartsItems.entrySet()) {
 			registerBlock(set.getValue(), mat.blockPartsBlocks.get(set.getKey()), set.getKey()+"_"+mat.name);
 
-			if (set.getKey() == "ore")
+			if (set.getKey() == "ore" || set.getKey() == "ore_gravel")
 				registerBlockModel(set.getKey()+"_"+mat.name, "block/cube_all", set.getKey()+"_"+mat.name);
 			else
 				registerBlockModel(set.getKey()+"_"+mat.name, "block/leaves", set.getKey());
