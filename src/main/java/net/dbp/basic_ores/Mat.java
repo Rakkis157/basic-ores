@@ -26,17 +26,10 @@ public class Mat {
 	public int color = 0xFFFFFF;
 	public int magicNumber = 2;
 	public int magicNumber2 = 1;
-	public boolean isGeneric = false;
 
     public Mat(String name, int color) {
 		this.name = name;
 		this.color = color;
-		this.isGeneric = true;
-	}
-
-	public Mat(String name){
-		this.name = name;
-		this.isGeneric = false;
 	}
 
 	public Ingredient getRepair() {
