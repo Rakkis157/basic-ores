@@ -158,7 +158,7 @@ public class Mat {
 					this.itemParts.put(part, new shovel(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
 				} else if (part == "sword") {
 					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "shears") {
+				} else if (part == "shear") {
 					this.itemParts.put(part, new shear(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				} else if (part == "fishingrod") {
 					this.itemParts.put(part, new FishingRodItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
@@ -170,9 +170,9 @@ public class Mat {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.MISC)));
 				} else if (part == "chestplate") {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.MISC)));
-				} else if (part == "leggings") {
+				} else if (part == "legging") {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.MISC)));
-				} else if (part == "boots") {
+				} else if (part == "boot") {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.MISC)));
 				} else if (part == "dagger") {
 					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));

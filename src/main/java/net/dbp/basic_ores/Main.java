@@ -45,10 +45,10 @@ public class Main implements ModInitializer {
 	public static final String[] gem = {"gem", "dust"};
 	public static final String[] vanillablocks = {"ore", "block"};
 	public static final String[] vanillatools = {"axe", "hoe", "pickaxe", "shovel", "sword"};
-	public static final String[] modtools = {"shears", "shield", "bow", "fishingrod", "hammer", "excavator"};
+	public static final String[] modtools = {"shear", "shield", "bow", "fishingrod", "hammer", "excavator"};
 	public static final String[] gobtools = {"dagger", "spear", "broadsword", "rapier", "haladie", "waraxe", "katana", "boomerang"};
 	public static String[] tools = ArrayUtils.addAll(vanillatools, modtools);
-	public static final String[] armor = {"helmet", "chestplate", "leggings", "boots"};
+	public static final String[] armor = {"helmet", "chestplate", "legging", "boot"};
 	public static final HashSet<String> shears = new HashSet<>();
 	public static final HashSet<String> mattags = new HashSet<>();
 	public static final HashSet<String> pickblocks = new HashSet<>();
@@ -188,7 +188,7 @@ public class Main implements ModInitializer {
 			}
 		}
 
-		if (mat.itemParts.containsKey("shears")){
+		if (mat.itemParts.containsKey("shear")){
 			shears.add("shears_"+mat.name);
 		}
 	}
