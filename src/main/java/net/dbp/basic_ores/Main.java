@@ -42,7 +42,7 @@ public class Main implements ModInitializer {
 	public static final String[] block = {"block"};
 	public static String[] tools = {
 		"axe", "hoe", "pickaxe", "shovel", "sword", "shear", "shield", "bow", "fishingrod", "hammer", "excavator", "helmet", "chestplate", "legging", "boot",
-		"spanner", "dagger", "spear", "broadsword", "rapier", "haladie", "waraxe", "katana", "boomerang"
+		"spanner", "paxel", "dagger", "spear", "broadsword", "rapier", "haladie", "waraxe", "katana", "boomerang"
 	};
 	public static final HashSet<String> shears = new HashSet<>();
 	public static final HashSet<String> mattags = new HashSet<>();
@@ -58,16 +58,17 @@ public class Main implements ModInitializer {
 		Mat titanium = new Mat("titanium", 0xc4b4ed).addItemParts(metal).addBlockPart(ore);
 		Mat ruby = new Mat("ruby", 0xbb4a1d).setMagicNumber(2, 3).addItemParts(gem, tools).addBlockPart(ore);
 		Mat sapphire = new Mat("sapphire", 0x1b55b8).setMagicNumber(2, 3).addItemParts(gem, tools).addBlockPart(ore);
-		Mat peridot = new Mat("peridot", 0x08dd7b).setMagicNumber(3, 3).addItemParts(gem, tools).addBlockPart(ore);
+		Mat peridot = new Mat("peridot", 0x08dd7b).setMagicNumber(3, 3).addItemParts(gem).addBlockPart(ore);
+		Mat emerald = new Mat("emerald", 0x08dd7b).setMagicNumber(3, 3).addItemPart("dust").addItemParts(tools).addBlockPart(ore);
 		Mat galena = new Mat("galena", 0xFFFFFF).addBlockPart("ore");
 		Mat nikolite = new Mat("nikolite", 0x1273de).addItemPart("dust").addBlockPart("ore");
 		Mat lead = new Mat("lead", 0x544773).addItemParts(metal).addBlockParts(block);
 		Mat silver = new Mat("silver", 0x9cbddc).addItemParts(metal).addBlockParts(block);
 		Mat platinum = new Mat("platinum", 0x70b6f7).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block);
 		Mat gold = new Mat("gold", 0xe7ca53).addItemParts(vanilla);
-		Mat copper = new Mat("copper", 0xc78621).addItemParts(vanilla, tools).setMagicNumber(2, 1);
+		Mat copper = new Mat("copper", 0xc78621).addItemParts(vanilla).setMagicNumber(2, 1);
 		Mat iron = new Mat("iron", 0xE0E0E0).addItemParts(vanilla).addItemPart("shield", "bow", "fishingrod", "hammer", "excavator");
-		Mat bronze = new Mat("bronze", 0xc69114).setMagicNumber(2, 2).addItemParts(metal, tools).addBlockParts(block);
+		Mat bronze = new Mat("bronze", 0xc69114).setMagicNumber(2, 2).addItemParts(metal).addBlockParts(block);
 		Mat brass = new Mat("brass", 0xdba31e).addItemParts(metal).addBlockParts(block);
 		Mat wroughtiron = new Mat("wroughtiron", 0xceaa9f).addItemParts(metal).addBlockParts(block);
 		Mat cobalt = new Mat("cobalt", 0x505080).setMagicNumber(3, 5).addItemParts(metal, tools).addBlockParts(block);
@@ -75,7 +76,7 @@ public class Main implements ModInitializer {
 		Mat invar = new Mat("invar", 0xcebe7c).setMagicNumber(2, 3).addItemParts(metal, tools).addBlockParts(block);
 		Mat electrum = new Mat("electrum", 0xf3d248).addItemParts(metal).addBlockParts(block);
 		Mat aluminium = new Mat("aluminium", 0xbad4ec).addItemParts(metal).addBlockParts(block);
-		Mat steel = new Mat("steel", 0x424c55).setMagicNumber(2, 3).addItemParts(metal, tools).addBlockParts(block);
+		Mat steel = new Mat("steel", 0x424c55).setMagicNumber(2, 3).addItemParts(metal).addBlockParts(block);
 		Mat tungstensteel = new Mat("tungstensteel", 0x274562).setMagicNumber(4, 4).addItemParts(metal, tools).addBlockParts(block);
 		Mat zinc = new Mat("zinc", 0xbba69f).addItemParts(metal).addBlockParts(block);
 		Mat osmium = new Mat("osmium", 0x93bbe8).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block);
@@ -141,35 +142,50 @@ public class Main implements ModInitializer {
 				registerBlockModel(set.getKey()+"_"+mat.name, "block/leaves", set.getKey());
 			ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> mat.color, mat.blockPartsBlocks.get(set.getKey()));
 			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> mat.color, set.getValue());
-			RESOURCE_PACK.addTag(new Identifier("c:items/"+mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
+			//RESOURCE_PACK.addTag(new Identifier("c:items/"+mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
+			RESOURCE_PACK.addTag(new Identifier("c:items/"+set.getKey()+"s/"+mat.name), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
 			RESOURCE_PACK.addLootTable(new Identifier(modid+":"+"blocks/"+set.getKey()+"_"+mat.name), JLootTable.loot("minecraft:block").pool(new JPool().rolls(1).entry(new JEntry().type("minecraft:item").name(modid+":"+set.getKey()+"_"+mat.name).condition("minecraft:survives_explosion"))));
 			pickblocks.add(set.getKey()+"_"+mat.name);
 		}
 
 		if(mat.itemParts.containsKey("ingot")){
 			if (mat.itemParts.containsKey("nugget")){
-				RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_ingot_to_nugget"), JRecipe.shapeless(JIngredients.ingredients().add(JIngredient.ingredient().item(mat.itemParts.get("ingot"))), JResult.itemStack(mat.itemParts.get("nugget"), 9)));
-				RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_nugget_to_ingot"), JRecipe.shaped(JPattern.pattern("NNN", "NNN", "NNN"), JKeys.keys().key("N", JIngredient.ingredient().item(mat.itemParts.get("nugget"))), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
+				RESOURCE_PACK.addRecipe(new Identifier(modid, "ingot_to_nugget"+"/"+mat.name), JRecipe.shapeless(JIngredients.ingredients().add(JIngredient.ingredient().item(mat.itemParts.get("ingot"))), JResult.itemStack(mat.itemParts.get("nugget"), 9)));
+				RESOURCE_PACK.addRecipe(new Identifier(modid, "nugget_to_ingot"+"/"+mat.name), JRecipe.shaped(JPattern.pattern("NNN", "NNN", "NNN"), JKeys.keys().key("N", JIngredient.ingredient().item(mat.itemParts.get("nugget"))), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
 			}
 
 			if (mat.blockPartsItems.containsKey("ore")){
-				RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_ore_to_ingot"), JRecipe.smelting(JIngredient.ingredient().item(mat.blockPartsItems.get("ore")), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
-			}
-
-			if (mat.blockPartsItems.containsKey("block")){
-				if (mat.itemParts.containsKey("excavator")){
-					RESOURCE_PACK.addRecipe(new Identifier(modid, mat.name+"_excavator"), 
-					JRecipe.shaped(JPattern.pattern(" B ", "BSB", " S "), JKeys.keys()
-						.key("b", JIngredient.ingredient().item(mat.blockPartsItems.get("block")))
-						.key("s", JIngredient.ingredient().item(Items.STICK)),
-						JResult.itemStack(mat.itemParts.get("excavator"), 1)));
-				}
+				RESOURCE_PACK.addRecipe(new Identifier(modid, "ore_to_ingot"+"/"+mat.name), JRecipe.smelting(JIngredient.ingredient().item(mat.blockPartsItems.get("ore")), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
 			}
 		}
+
+		String[] hammerShape = {" M ", " HM", "H  "};
+		String[] excavatorShape = {" M  ", "MHM", " H "};
+		String[] pickaxeShape = {"PMM", " H ", " H "};
+		if (mat.itemParts.containsKey("hammer")) createToolRecipe(mat.name, "hammer", hammerShape, "large_plate", mat.itemParts.get("hammer"), Items.STICK);
+		if (mat.itemParts.containsKey("excavator")) createToolRecipe(mat.name, "excavator", excavatorShape, "large_plate", mat.itemParts.get("excavator"), Items.STICK);
+		if (mat.itemParts.containsKey("pickaxe")) createToolRecipe(mat.name, "pickaxe", pickaxeShape, "ingots", "plates", mat.itemParts.get("pickaxe"), Items.STICK);
 
 		if (mat.itemParts.containsKey("shear")){
 			shears.add("shears_"+mat.name);
 		}
+	}
+
+	public void createToolRecipe(String name, String recipeName, String[] shape, String mat, String mat2, Item item, Item handle){
+		RESOURCE_PACK.addRecipe(new Identifier(modid, recipeName+name), 
+		JRecipe.shaped(JPattern.pattern(shape[0], shape[1], shape[2]), JKeys.keys()
+			.key("M", JIngredient.ingredient().tag("c:"+mat+"/"+name))
+			.key("P", JIngredient.ingredient().tag("c:"+mat2+"/"+name))
+			.key("H", JIngredient.ingredient().item(Items.STICK)),
+			JResult.itemStack(item, 1)));
+	}
+
+	public void createToolRecipe(String name, String recipeName, String[] shape, String mat, Item item, Item handle){
+		RESOURCE_PACK.addRecipe(new Identifier(modid, recipeName+name), 
+		JRecipe.shaped(JPattern.pattern(shape[0], shape[1], shape[2]), JKeys.keys()
+			.key("M", JIngredient.ingredient().tag("c:"+mat+"/"+name))
+			.key("H", JIngredient.ingredient().item(Items.STICK)),
+			JResult.itemStack(item, 1)));
 	}
 
 	public void addTags(HashSet<String> hashset, String namespace){

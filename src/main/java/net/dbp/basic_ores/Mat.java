@@ -137,54 +137,78 @@ public class Mat {
     public Mat addItemParts(String[]... partArrays) {
 		for (String[] parts : partArrays) {
 			for (String part : parts) {
-				if (part == "hammer"){
+				switch (part) {
+				case "hammer":
 					this.itemParts.put(part, new HammerItem(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "excavator") {
+				break;
+				case "excavator":
 					this.itemParts.put(part, new ExcavatorItem(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "axe") {
+				break;
+				case "axe":
 					this.itemParts.put(part, new axe(new ToolMat(), 6, -3.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "hoe") {
+				break;
+				case "hoe":
 					this.itemParts.put(part, new hoe(new ToolMat(), 0, -3.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "pickaxe") {
+				break;
+				case "pickaxe":
 					this.itemParts.put(part, new pick(new ToolMat(), 1, -2.8f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "shovel") {
+				break;
+				case "shovel":
 					this.itemParts.put(part, new shovel(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "sword") {
+				break;
+				case "sword":
 					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "shear") {
+				break;
+				case "shear":
 					this.itemParts.put(part, new shear(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
-				} else if (part == "fishingrod") {
+				break;
+				case "fishingrod":
 					this.itemParts.put(part, new FishingRodItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
-				} else if (part == "bow") {
+				break;
+				case "bow":
 					this.itemParts.put(part, new BowItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
-				} else if (part == "shield") {
+				break;
+				case "shield":
 					itemParts.put(part, new FabricShieldItem(new Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
-				} else if (part == "helmet") {
+				break;
+				case "helmet":
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.MISC)));
-				} else if (part == "chestplate") {
+				break;
+				case "chestplate":
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.MISC)));
-				} else if (part == "legging") {
+				break;
+				case "legging":
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.MISC)));
-				} else if (part == "boot") {
+				break;
+				case "boot":
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.MISC)));
-				} else if (part == "dagger") {
+				break;
+				case "dagger":
 					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "spear") {
+				break;
+				case "spear":
 					//this.itemParts.put(part, new SpearItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "broadsword") {
+				break;
+				case "broadsword":
 					//this.itemParts.put(part, new BroadswordItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "rapier") {
+				break;
+				case "rapier":
 					//this.itemParts.put(part, new RapierItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "haladie") {
+				break;
+				case "haladie":
 					//this.itemParts.put(part, new HaladieItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "waraxe") {
+				break;
+				case "waraxe":
 					//this.itemParts.put(part, new WaraxeItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "katana") {
+				break;
+				case "katana":
 					//this.itemParts.put(part, new KatanaItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
-				} else if (part == "boomerang") {
+				break;
+				case "boomerang":
 					//this.itemParts.put(part, new BoomerangItem(new Settings().group(ItemGroup.MISC), new ToolMat()));
-				} else {
+				default:
 					this.itemParts.put(part, new Item(new Settings().group(ItemGroup.MISC)));
+				break;
 				}
 			}
 		}
