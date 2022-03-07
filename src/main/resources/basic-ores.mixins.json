@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "ExampleMixin"
+    "axehax",
+    "shovelhax",
+    "hoehax"
   ],
   "injectors": {
     "defaultRequire": 1

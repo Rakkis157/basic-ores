@@ -183,6 +183,9 @@ public class Mat {
 				case "boot":
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.MISC)));
 				break;
+				case "paxel":
+					this.itemParts.put(part, new paxel(new ToolMat(), 1, -2.8f, new Settings().group(ItemGroup.MISC)));
+				break;
 				case "dagger":
 					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
 				break;
@@ -206,6 +209,7 @@ public class Mat {
 				break;
 				case "boomerang":
 					//this.itemParts.put(part, new BoomerangItem(new Settings().group(ItemGroup.MISC), new ToolMat()));
+				break;
 				default:
 					this.itemParts.put(part, new Item(new Settings().group(ItemGroup.MISC)));
 				break;

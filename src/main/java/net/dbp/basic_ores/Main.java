@@ -12,9 +12,18 @@ import java.util.function.Predicate;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.*;
+import net.minecraft.recipe.CookingRecipeSerializer;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.*;
@@ -27,14 +36,22 @@ import it.unimi.dsi.fastutil.Hash;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 
+
 public class Main implements ModInitializer {
-	public static final String modid = "basic-ores";
+	public static final String modid = "teknologi";
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(modid+":resource-pack");
 	public static final Logger LOGGER = LoggerFactory.getLogger(modid);
 	public static final boolean babylonCompat = FabricLoader.getInstance().isModLoaded("gateofbabylon");
 	public static final boolean bclibCompat = FabricLoader.getInstance().isModLoaded("bclib");
 	public static final boolean fabricShieldLibCompat = FabricLoader.getInstance().isModLoaded("fabricshieldlib");
 
+	public static Block TEST_FURNACE_BLOCK;
+	public static RecipeType<TestRecipe> TEST_RECIPE_TYPE;
+	public static BlockEntityType TEST_FURNACE_BLOCK_ENTITY;
+	public static RecipeSerializer<TestRecipe> TEST_RECIPE_SERIALIZER;
+	public static ScreenHandlerType<TestFurnaceScreenHandler> TEST_FURNACE_SCREEN_HANDLER;
+
+	
 	public static final String[] vanilla = {"plate", "gear", "dust"};
 	public static final String[] metal = {"ingot", "nugget", "raw_ore", "plate", "gear", "dust", "wire", "can", "large_plate", "tube"};
 	public static final String[] gem = {"gem", "dust"};
@@ -44,13 +61,25 @@ public class Main implements ModInitializer {
 		"axe", "hoe", "pickaxe", "shovel", "sword", "shear", "shield", "bow", "fishingrod", "hammer", "excavator", "helmet", "chestplate", "legging", "boot",
 		"spanner", "paxel", "dagger", "spear", "broadsword", "rapier", "haladie", "waraxe", "katana", "boomerang"
 	};
+	String[] hammerShape = {" M ", " HM", "H  "};
+	String[] excavatorShape = {" M  ", "MHM", " H "};
+	String[] pickaxeShape = {"PMM", " H ", " H "};
 	public static final HashSet<String> shears = new HashSet<>();
 	public static final HashSet<String> mattags = new HashSet<>();
 	public static final HashSet<String> pickblocks = new HashSet<>();
 
 	@Override
 	public void onInitialize() {
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 0x3495eb, Items.IRON_INGOT);
+		TEST_FURNACE_BLOCK = Registry.register(Registry.BLOCK, new Identifier(modid, "test_furnace"), new TestFurnace(FabricBlockSettings.of(Material.METAL)));
+		Registry.register(Registry.ITEM, new Identifier(modid, "test_furnace"), new BlockItem(TEST_FURNACE_BLOCK, new Item.Settings().group(ItemGroup.DECORATIONS)));
+		TEST_FURNACE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(modid, "test_furnace"), FabricBlockEntityTypeBuilder.create(TestFurnaceBlockEntity::new, TEST_FURNACE_BLOCK).build(null));
+		TEST_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(modid, "test_furnace"), new CookingRecipeSerializer<>(TestRecipe::new, 200));
+		TEST_FURNACE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(modid, "test_furnace"), TestFurnaceScreenHandler::new);
+        TEST_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(modid, "test_furnace"), new RecipeType<TestRecipe>() {
+            @Override
+            public String toString() {return "test_furnace";}
+        });
+
 		AutoConfig.register(BasicConfig.class, Toml4jConfigSerializer::new);
 		Mat nickel = new Mat("nickel", 0x464D19).setMagicNumber(2, 2).addItemParts(metal, tools).addBlockPart(ore);
 		Mat tin = new Mat("tin", 0xE0E0FF).addItemParts(metal).addBlockPart(ore);
@@ -80,7 +109,7 @@ public class Main implements ModInitializer {
 		Mat tungstensteel = new Mat("tungstensteel", 0x274562).setMagicNumber(4, 4).addItemParts(metal, tools).addBlockParts(block);
 		Mat zinc = new Mat("zinc", 0xbba69f).addItemParts(metal).addBlockParts(block);
 		Mat osmium = new Mat("osmium", 0x93bbe8).setMagicNumber(3, 2).addItemParts(metal, tools).addBlockParts(block);
-		Mat iridium = new Mat("iridium", 0xFFFFFF).addItemParts(metal).addBlockParts(block);
+		Mat iridium = new Mat("iridium", 0xFFFFFF).addItemParts(metal, tools).addBlockParts(block);
 		Mat magnesium = new Mat("magnesium", 0x000000).addItemParts(metal).addBlockParts(ore);
 		
 		registerMat(nickel);
@@ -90,6 +119,7 @@ public class Main implements ModInitializer {
 		registerMat(ruby);
 		registerMat(sapphire);
 		registerMat(peridot);
+		registerMat(emerald);
 		registerMat(galena);
 		registerMat(lead);
 		registerMat(silver);
@@ -118,6 +148,8 @@ public class Main implements ModInitializer {
 		addTags(shears, "fabric:items/shears");
 		addTags(pickblocks, "minecraft:blocks/mineable/pickaxe");
 		addTags(pickblocks, "minecraft:blocks/needs_stone_tool");
+
+		RESOURCE_PACK.addRecipe(new Identifier(modid, "pickaxes/iridium"), JRecipe.smithing(JIngredient.ingredient().item(Items.NETHERITE_PICKAXE), JIngredient.ingredient().item(iridium.itemParts.get("plate")), JResult.item(iridium.itemParts.get("pickaxe"))));
 	}
 
 	public void registerMat(Mat mat){
@@ -129,7 +161,7 @@ public class Main implements ModInitializer {
 				default: registerItemModel(set.getKey()+"_"+mat.name, "item/generated", set.getKey()); break;
 			}
 			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> mat.color, set.getValue());
-			RESOURCE_PACK.addTag(new Identifier("c:items/"+mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
+			//RESOURCE_PACK.addTag(new Identifier("c:items/"+mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
 			RESOURCE_PACK.addTag(new Identifier("c:items/"+set.getKey()+"s/"+mat.name), new JTag().add(new Identifier(modid+":"+set.getKey()+"_"+mat.name)));
 		}
 
@@ -157,14 +189,17 @@ public class Main implements ModInitializer {
 			if (mat.blockPartsItems.containsKey("ore")){
 				RESOURCE_PACK.addRecipe(new Identifier(modid, "ore_to_ingot"+"/"+mat.name), JRecipe.smelting(JIngredient.ingredient().item(mat.blockPartsItems.get("ore")), JResult.itemStack(mat.itemParts.get("ingot"), 1)));
 			}
+
+			if (mat.itemParts.containsKey("hammer")) createToolRecipe(mat.name, "hammer", hammerShape, "large_plates", mat.itemParts.get("hammer"), Items.STICK);
+			if (mat.itemParts.containsKey("excavator")) createToolRecipe(mat.name, "excavator", excavatorShape, "large_plates", mat.itemParts.get("excavator"), Items.STICK);
+			if (mat.itemParts.containsKey("pickaxe")) createToolRecipe(mat.name, "pickaxe", pickaxeShape, "ingots", "plates", mat.itemParts.get("pickaxe"), Items.STICK);
 		}
 
-		String[] hammerShape = {" M ", " HM", "H  "};
-		String[] excavatorShape = {" M  ", "MHM", " H "};
-		String[] pickaxeShape = {"PMM", " H ", " H "};
-		if (mat.itemParts.containsKey("hammer")) createToolRecipe(mat.name, "hammer", hammerShape, "large_plate", mat.itemParts.get("hammer"), Items.STICK);
-		if (mat.itemParts.containsKey("excavator")) createToolRecipe(mat.name, "excavator", excavatorShape, "large_plate", mat.itemParts.get("excavator"), Items.STICK);
-		if (mat.itemParts.containsKey("pickaxe")) createToolRecipe(mat.name, "pickaxe", pickaxeShape, "ingots", "plates", mat.itemParts.get("pickaxe"), Items.STICK);
+		if(mat.itemParts.containsKey("gem")){
+			if (mat.itemParts.containsKey("hammer")) createToolRecipe(mat.name, "hammer", hammerShape, "blocks", mat.itemParts.get("hammer"), Items.STICK);
+			if (mat.itemParts.containsKey("excavator")) createToolRecipe(mat.name, "excavator", excavatorShape, "blocks", mat.itemParts.get("excavator"), Items.STICK);
+			if (mat.itemParts.containsKey("pickaxe")) createToolRecipe(mat.name, "pickaxe", pickaxeShape, "gems", "gems", mat.itemParts.get("pickaxe"), Items.STICK);
+		}
 
 		if (mat.itemParts.containsKey("shear")){
 			shears.add("shears_"+mat.name);
