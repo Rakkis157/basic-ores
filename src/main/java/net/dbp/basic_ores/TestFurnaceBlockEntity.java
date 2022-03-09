@@ -3,6 +3,7 @@ package net.dbp.basic_ores;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -22,5 +23,10 @@ public class TestFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     @Override
     public ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new TestFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+    }
+
+    @Override
+    protected int getFuelTime(ItemStack fuel) {
+        return 100;
     }
 }

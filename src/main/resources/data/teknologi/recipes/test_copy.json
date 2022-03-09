@@ -1,0 +1,8 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+      "item": "minecraft:stone"
+    },
+    "result": "minecraft:diamond",
+    "experience": 0.2
+  }
