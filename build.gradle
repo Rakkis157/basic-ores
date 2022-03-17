@@ -53,6 +53,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+	maven {
+        name = 'gudenau\'s maven'
+        url = 'https://maven.gudenau.net'
+        content {
+            includeGroup 'net.gudenau.minecraft'
+        }
+    }
 }
 
 dependencies {
@@ -73,6 +80,7 @@ dependencies {
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:8.+"
 	modApi "teamreborn:energy:2.+"
 	modImplementation "TechReborn:TechReborn-1.18:5.+"
+	modImplementation "net.gudenau.minecraft:MoreTags:3.+"
 }
 
 processResources {

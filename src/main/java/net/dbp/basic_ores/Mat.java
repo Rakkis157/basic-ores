@@ -160,7 +160,7 @@ public class Mat {
 					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Settings().group(ItemGroup.MISC)));
 				break;
 				case "shear":
-					this.itemParts.put(part, new shear(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
+					if (Main.moreTagsCompat || Main.bclibCompat) this.itemParts.put(part, new shear(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				break;
 				case "fishingrod":
 					this.itemParts.put(part, new FishingRodItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));

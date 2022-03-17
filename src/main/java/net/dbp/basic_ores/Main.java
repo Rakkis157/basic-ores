@@ -43,6 +43,7 @@ public class Main implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(modid);
 	public static final boolean babylonCompat = FabricLoader.getInstance().isModLoaded("gateofbabylon");
 	public static final boolean bclibCompat = FabricLoader.getInstance().isModLoaded("bclib");
+	public static final boolean moreTagsCompat = FabricLoader.getInstance().isModLoaded("moretags");
 	public static final boolean fabricShieldLibCompat = FabricLoader.getInstance().isModLoaded("fabricshieldlib");
 
 	public static Block TEST_FURNACE_BLOCK;
@@ -145,7 +146,8 @@ public class Main implements ModInitializer {
 
 		registerOre("nickel_ore_overworld", BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.STONE_ORE_REPLACEABLES, nickel.blockPartsBlocks.get("ore"), 9, 20, -12, 64);
 		registerOre("tin_ore_nether", BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.NETHERRACK, tin.blockPartsBlocks.get("ore"), 9, 40, 10, 112);
-		addTags(shears, "fabric:items/shears");
+		if (bclibCompat) addTags(shears, "fabric:items/shears");
+		if (moreTagsCompat) addTags(shears, "c:items/shears");
 		addTags(pickblocks, "minecraft:blocks/mineable/pickaxe");
 		addTags(pickblocks, "minecraft:blocks/needs_stone_tool");
 
