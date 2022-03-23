@@ -18,10 +18,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.dbp.basic_ores.Main"
+      "net.dbp.basic_ores.Basic"
     ],
     "client": [
-      "net.dbp.basic_ores.MainClient"
+      "net.dbp.basic_ores.BasicClient"
     ]
   },
   "mixins": [

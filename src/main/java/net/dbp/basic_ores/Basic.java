@@ -38,11 +38,23 @@ public class Basic implements ModInitializer {
 	public static final boolean bclibCompat = FabricLoader.getInstance().isModLoaded("bclib");
 	public static final boolean moreTagsCompat = FabricLoader.getInstance().isModLoaded("moretags");
 	public static final boolean fabricShieldLibCompat = FabricLoader.getInstance().isModLoaded("fabricshieldlib");
-	public static Block TEST_FURNACE_BLOCK;
-	public static RecipeType<TestRecipe> TEST_RECIPE_TYPE;
-	public static BlockEntityType TEST_FURNACE_BLOCK_ENTITY;
-	public static RecipeSerializer<TestRecipe> TEST_RECIPE_SERIALIZER;
-	public static ScreenHandlerType<TestFurnaceScreenHandler> TEST_FURNACE_SCREEN_HANDLER;
+	public static final Block TEST_FURNACE_BLOCK;
+	public static final RecipeType<TestRecipe> TEST_RECIPE_TYPE;
+	public static final BlockEntityType TEST_FURNACE_BLOCK_ENTITY;
+	public static final RecipeSerializer<TestRecipe> TEST_RECIPE_SERIALIZER;
+	public static final ScreenHandlerType<TestFurnaceScreenHandler> TEST_FURNACE_SCREEN_HANDLER;
+
+	static {
+		TEST_FURNACE_BLOCK = Registry.register(Registry.BLOCK, new Identifier(modid, "test_furnace"), new TestFurnace(FabricBlockSettings.of(Material.METAL)));
+		Registry.register(Registry.ITEM, new Identifier(modid, "test_furnace"), new BlockItem(TEST_FURNACE_BLOCK, new Item.Settings().group(ItemGroup.DECORATIONS)));
+		TEST_FURNACE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(modid, "test_furnace"), FabricBlockEntityTypeBuilder.create(TestFurnaceBlockEntity::new, TEST_FURNACE_BLOCK).build(null));
+		TEST_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(modid, "test_furnace"), new CookingRecipeSerializer<>(TestRecipe::new, 200));
+		TEST_FURNACE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(modid, "test_furnace"), TestFurnaceScreenHandler::new);
+        TEST_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(modid, "test_furnace"), new RecipeType<TestRecipe>() {
+            @Override
+            public String toString() {return "test_furnace";}
+        });
+	}
 
 	public record GravelOreFeatureConfig(IntProvider height, BlockStateProvider block) implements FeatureConfig {
         public static final Codec<GravelOreFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -60,17 +72,8 @@ public class Basic implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		TEST_FURNACE_BLOCK = Registry.register(Registry.BLOCK, new Identifier(modid, "test_furnace"), new TestFurnace(FabricBlockSettings.of(Material.METAL)));
-		Registry.register(Registry.ITEM, new Identifier(modid, "test_furnace"), new BlockItem(TEST_FURNACE_BLOCK, new Item.Settings().group(ItemGroup.DECORATIONS)));
-		TEST_FURNACE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(modid, "test_furnace"), FabricBlockEntityTypeBuilder.create(TestFurnaceBlockEntity::new, TEST_FURNACE_BLOCK).build(null));
-		TEST_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(modid, "test_furnace"), new CookingRecipeSerializer<>(TestRecipe::new, 200));
-		TEST_FURNACE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(modid, "test_furnace"), TestFurnaceScreenHandler::new);
-        TEST_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(modid, "test_furnace"), new RecipeType<TestRecipe>() {
-            @Override
-            public String toString() {return "test_furnace";}
-        });
-
 		AutoConfig.register(BasicConfig.class, Toml4jConfigSerializer::new);
+		BasicMaterials.registerMats();
 		registerOre("nickel_ore_overworld", BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.STONE_ORE_REPLACEABLES, BasicMaterials.nickel.blockPartsBlocks.get("ore"), 9, 20, -12, 64);
 		registerOre("tin_ore_nether", BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.NETHERRACK, BasicMaterials.tin.blockPartsBlocks.get("ore"), 9, 40, 10, 112);
 		registerOre("tin_ore_overworld", BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.STONE_ORE_REPLACEABLES, BasicMaterials.tin.blockPartsBlocks.get("ore"), 9, 40, 10, 112);

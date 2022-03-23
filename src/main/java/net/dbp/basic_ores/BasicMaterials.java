@@ -87,7 +87,7 @@ public class BasicMaterials {
 	static BasicMaterial soularium = new BasicMaterial("soularium", 0x000000).addItemParts(metal);
 	static BasicMaterial darksoularium = new BasicMaterial("darksoularium", 0x000000).addItemParts(metal);
     
-    public void registerMats(){
+    public static void registerMats(){
         registerMat(nickel);
 		registerMat(tin);
 		registerMat(cassiterite);
@@ -151,7 +151,7 @@ public class BasicMaterials {
 		if (Basic.moreTagsCompat) BasicJson.addTags(shears, "c:items/shears");
     }
 
-    public void registerMat(BasicMaterial Mat){
+    public static void registerMat(BasicMaterial Mat){
 		for (Map.Entry<String, Item> set : Mat.itemParts.entrySet()) {
 			Basic.registerItem(set.getValue(), set.getKey()+"_"+Mat.name);
 			switch (set.getKey()) {

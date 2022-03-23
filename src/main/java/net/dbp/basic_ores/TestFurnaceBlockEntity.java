@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class TestFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     //Since we already now the BlockEntityType and RecipeType we don't need them in the constructor's parameters
@@ -25,8 +26,12 @@ public class TestFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         return new TestFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
+    public void tick2(World world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity) {
+        super.tick(world, pos, state, blockEntity);
+    }
+
     @Override
     protected int getFuelTime(ItemStack fuel) {
-        return 100;
+        return 100000;
     }
 }
