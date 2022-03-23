@@ -1,12 +1,11 @@
 package net.dbp.basic_ores;
 
-import net.fabricmc.api.Environment;
+import net.fabricmc.api.*;
 import net.minecraft.client.gui.screen.ingame.AbstractFurnaceScreen;
 import net.minecraft.client.gui.screen.recipebook.FurnaceRecipeBookScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.fabricmc.api.EnvType;
 
 @Environment(EnvType.CLIENT)
 public class TestFurnaceScreen extends AbstractFurnaceScreen<TestFurnaceScreenHandler> {

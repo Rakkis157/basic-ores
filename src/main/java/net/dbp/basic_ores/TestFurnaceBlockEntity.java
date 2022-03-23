@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 public class TestFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     //Since we already now the BlockEntityType and RecipeType we don't need them in the constructor's parameters
     public TestFurnaceBlockEntity(BlockPos pos, BlockState state) {
-        super(Main.TEST_FURNACE_BLOCK_ENTITY, pos, state, Main.TEST_RECIPE_TYPE);
+        super(Basic.TEST_FURNACE_BLOCK_ENTITY, pos, state, Basic.TEST_RECIPE_TYPE);
     }
  
     @Override

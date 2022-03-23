@@ -1,7 +1,8 @@
 package net.dbp.basic_ores;
 
-import net.minecraft.block.AbstractFurnaceBlock;
-import net.minecraft.block.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -14,7 +15,7 @@ public class TestFurnace extends AbstractFurnaceBlock{
         super(settings);
     }
 
-    @Override
+    @Override @Nullable
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TestFurnaceBlockEntity(pos, state);
     }
@@ -25,7 +26,7 @@ public class TestFurnace extends AbstractFurnaceBlock{
         if (blockEntity instanceof TestFurnaceBlockEntity) {
             player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
             // Optional: increment player's stat
-            // player.incrementStat(Stats.INTERACT_WITH_FURNACE);
+            player.incrementStat(Stats.INTERACT_WITH_FURNACE);
         }
     }
 }

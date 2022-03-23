@@ -1,23 +1,17 @@
 package net.dbp.basic_ores;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-
+import java.util.*;
 import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
 //import draylar.gateofbabylon.item.*;
 import draylar.magna.item.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraft.item.Item.Settings;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.sound.*;
 import net.dbp.basic_ores.tools.*;
-//import ru.bclib.items.tool.*;
 
-public class Mat {
+public class BasicMaterial {
     public final HashMap<String, Item> itemParts = new HashMap<>();
 	public final HashMap<String, Block> blockPartsBlocks = new HashMap<>();
 	public final HashMap<String, Item> blockPartsItems = new HashMap<>();
@@ -27,7 +21,7 @@ public class Mat {
 	public int magicNumber = 2;
 	public int magicNumber2 = 1;
 
-    public Mat(String name, int color) {
+    public BasicMaterial(String name, int color) {
 		this.name = name;
 		this.color = color;
 	}
@@ -128,48 +122,48 @@ public class Mat {
 		
 	}
 
-	public Mat setMagicNumber(int magicNumber, int magicNumber2){
+	public BasicMaterial setMagicNumber(int magicNumber, int magicNumber2){
 		this.magicNumber = magicNumber;
 		this.magicNumber2 = magicNumber2;
 		return this;
 	}
 
-    public Mat addItemParts(String[]... partArrays) {
+    public BasicMaterial addItemParts(String[]... partArrays) {
 		for (String[] parts : partArrays) {
 			for (String part : parts) {
 				switch (part) {
 				case "hammer":
-					this.itemParts.put(part, new HammerItem(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new HammerItem(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "excavator":
-					this.itemParts.put(part, new ExcavatorItem(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new ExcavatorItem(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "axe":
-					this.itemParts.put(part, new axe(new ToolMat(), 6, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new axe(new ToolMat(), 6, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "hoe":
-					this.itemParts.put(part, new hoe(new ToolMat(), 0, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new hoe(new ToolMat(), 0, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "pickaxe":
-					this.itemParts.put(part, new pick(new ToolMat(), 1, -2.8f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new pick(new ToolMat(), 1, -2.8f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "shovel":
-					this.itemParts.put(part, new shovel(new ToolMat(), 1, -3.0f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new shovel(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "sword":
-					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "shear":
-					if (Main.moreTagsCompat || Main.bclibCompat) this.itemParts.put(part, new shear(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
+					if (Basic.moreTagsCompat || Basic.bclibCompat) this.itemParts.put(part, new shear(new Item.Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				break;
 				case "fishingrod":
-					this.itemParts.put(part, new FishingRodItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
+					this.itemParts.put(part, new FishingRodItem(new Item.Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				break;
 				case "bow":
-					this.itemParts.put(part, new BowItem(new Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
+					this.itemParts.put(part, new BowItem(new Item.Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				break;
 				case "shield":
-					itemParts.put(part, new FabricShieldItem(new Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
+					itemParts.put(part, new FabricShieldItem(new Item.Settings().maxDamage(magicNumber2*magicNumber2*magicNumber2*60).group(ItemGroup.MISC), 10, 13, itemParts.get("ingot")));
 				break;
 				case "helmet":
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.MISC)));
@@ -184,34 +178,34 @@ public class Mat {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "paxel":
-					this.itemParts.put(part, new paxel(new ToolMat(), 1, -2.8f, new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new paxel(new ToolMat(), 1, -2.8f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "dagger":
-					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "spear":
-					//this.itemParts.put(part, new SpearItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new SpearItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "broadsword":
-					//this.itemParts.put(part, new BroadswordItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new BroadswordItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "rapier":
-					//this.itemParts.put(part, new RapierItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new RapierItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "haladie":
-					//this.itemParts.put(part, new HaladieItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new HaladieItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "waraxe":
-					//this.itemParts.put(part, new WaraxeItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new WaraxeItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "katana":
-					//this.itemParts.put(part, new KatanaItem(new ToolMat(), 0.5f, -1.0f, new Settings().group(ItemGroup.MISC)));
+					//this.itemParts.put(part, new KatanaItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "boomerang":
-					//this.itemParts.put(part, new BoomerangItem(new Settings().group(ItemGroup.MISC), new ToolMat()));
+					//this.itemParts.put(part, new BoomerangItem(new Item.Settings().group(ItemGroup.MISC), new ToolMat()));
 				break;
 				default:
-					this.itemParts.put(part, new Item(new Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Item(new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				}
 			}
@@ -219,31 +213,31 @@ public class Mat {
 		return this;
 	}
 
-	public Mat addItemPart(String... parts) {
+	public BasicMaterial addItemPart(String... parts) {
 		return addItemParts(parts);
 	}
 
-	public Mat addBlockParts(String[]... partArrays) {
+	public BasicMaterial addBlockParts(String[]... partArrays) {
 		for (String[] parts : partArrays) {
 			for (String part : parts) {
 				this.blockPartsBlocks.put(part, new Block(Block.Settings.of(Material.STONE).strength(4.0f)));
-				this.blockPartsItems.put(part, new BlockItem(this.blockPartsBlocks.get(part), new Settings().group(ItemGroup.MISC)));
+				this.blockPartsItems.put(part, new BlockItem(this.blockPartsBlocks.get(part), new Item.Settings().group(ItemGroup.MISC)));
 			}
 		}
 		return this;
 	}
 
-	public Mat addBlockPart(String... parts) {
+	public BasicMaterial addBlockPart(String... parts) {
 		return addBlockParts(parts);
 	}
 
 
-	public Mat addTags(String[]... tagArrays) {
+	public BasicMaterial addTags(String[]... tagArrays) {
 		for (String[] tags : tagArrays) this.tags.addAll(Arrays.asList(tags));
 		return this;
 	}
 
-	public Mat addTag(String... tags) {
+	public BasicMaterial addTag(String... tags) {
 		return addTags(tags);
 	}
 }
