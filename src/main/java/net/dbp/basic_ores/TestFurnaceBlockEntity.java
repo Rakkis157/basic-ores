@@ -26,10 +26,6 @@ public class TestFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         return new TestFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public void tick2(World world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity) {
-        super.tick(world, pos, state, blockEntity);
-    }
-
     @Override
     protected int getFuelTime(ItemStack fuel) {
         return 100000;
