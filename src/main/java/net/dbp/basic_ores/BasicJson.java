@@ -45,9 +45,21 @@ public class BasicJson {
 		RRPCallback.BEFORE_VANILLA.register(a -> a.add(Basic.RESOURCE_PACK));
 	}
 
+
+    public static void registerItemModel(String modelName, String modelBase, String textureBase, String textureName){
+		Basic.RESOURCE_PACK.addModel(JModel.model(modelBase).textures(new JTextures().layer0(textureBase).layer1(Basic.modid+":item/"+textureName)), new Identifier(Basic.modid, "item/"+modelName));
+		RRPCallback.BEFORE_VANILLA.register(a -> a.add(Basic.RESOURCE_PACK));
+	}
+
 	public static void registerBlockModel(String modelName, String modelBase, String textureName){
 		Basic.RESOURCE_PACK.addBlockState(new JState().add(new JVariant().put("", new JBlockModel(new Identifier(Basic.modid+":block/"+modelName)))), new Identifier(Basic.modid, modelName));
 		Basic.RESOURCE_PACK.addModel(JModel.model().parent(modelBase).textures(new JTextures().var("all",Basic.modid+":block/"+textureName)), new Identifier(Basic.modid, "block/"+modelName));
+		Basic.RESOURCE_PACK.addModel(JModel.model().parent(Basic.modid+":block/"+modelName), new Identifier(Basic.modid, "item/"+modelName));
+	}
+
+	public static void registerBlockModel(String modelName, String modelBase, String textureBase, String textureName){
+		Basic.RESOURCE_PACK.addBlockState(new JState().add(new JVariant().put("", new JBlockModel(new Identifier(Basic.modid+":block/"+modelName)))), new Identifier(Basic.modid, modelName));
+		Basic.RESOURCE_PACK.addModel(JModel.model().parent(modelBase).textures(new JTextures().layer0(textureBase).layer1(Basic.modid+":block/"+textureName)), new Identifier(Basic.modid, "block/"+modelName));
 		Basic.RESOURCE_PACK.addModel(JModel.model().parent(Basic.modid+":block/"+modelName), new Identifier(Basic.modid, "item/"+modelName));
 	}
 }

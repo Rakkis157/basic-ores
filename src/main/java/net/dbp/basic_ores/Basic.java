@@ -17,10 +17,11 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.*;
 import net.minecraft.recipe.*;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.structure.rule.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.*;
 import net.minecraft.util.registry.*;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
@@ -43,7 +44,6 @@ public class Basic implements ModInitializer {
 	public static final BlockEntityType TEST_FURNACE_BLOCK_ENTITY;
 	public static final RecipeSerializer<TestRecipe> TEST_RECIPE_SERIALIZER;
 	public static final ScreenHandlerType<TestFurnaceScreenHandler> TEST_FURNACE_SCREEN_HANDLER;
-
 	static {
 		TEST_FURNACE_BLOCK = Registry.register(Registry.BLOCK, new Identifier(modid, "test_furnace"), new TestFurnace(FabricBlockSettings.of(Material.METAL)));
 		Registry.register(Registry.ITEM, new Identifier(modid, "test_furnace"), new BlockItem(TEST_FURNACE_BLOCK, new Item.Settings().group(ItemGroup.DECORATIONS)));
@@ -74,19 +74,9 @@ public class Basic implements ModInitializer {
 	public void onInitialize() {
 		AutoConfig.register(BasicConfig.class, Toml4jConfigSerializer::new);
 		BasicMaterials.registerMats();
-		registerOre("nickel_ore_overworld", BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.STONE_ORE_REPLACEABLES, BasicMaterials.nickel.blockPartsBlocks.get("ore"), 9, 20, -12, 64);
-		registerOre("tin_ore_nether", BiomeSelectors.foundInTheNether(), OreConfiguredFeatures.NETHERRACK, BasicMaterials.tin.blockPartsBlocks.get("ore"), 9, 40, 10, 112);
-		registerOre("tin_ore_overworld", BiomeSelectors.foundInOverworld(), OreConfiguredFeatures.STONE_ORE_REPLACEABLES, BasicMaterials.tin.blockPartsBlocks.get("ore"), 9, 40, 10, 112);
+		BasicMaterials.oregen();
 		RESOURCE_PACK.addRecipe(new Identifier(modid, "pickaxes/iridium"), JRecipe.smithing(JIngredient.ingredient().item(Items.NETHERITE_PICKAXE), JIngredient.ingredient().item(BasicMaterials.iridium.itemParts.get("plate")), JResult.item(BasicMaterials.iridium.itemParts.get("pickaxe"))));
 		Registry.register(Registry.FEATURE, new Identifier(modid, "gravelore"), GRAVEL_ORE_FEATURE);
-	}
-
-	public void registerOre(String name, Predicate<BiomeSelectionContext> predicate, RuleTest replace, Block block, Integer vein_size, Integer veins_per_chunk, Integer min_height, Integer max_height){
-		ConfiguredFeature<?, ?> ORE_FEATURE = new ConfiguredFeature(Feature.ORE, new OreFeatureConfig(replace, block.getDefaultState(), vein_size));
-		PlacedFeature ORE_FEATURE_PLACED = new PlacedFeature(RegistryEntry.of(ORE_FEATURE), Arrays.asList(CountPlacementModifier.of(veins_per_chunk), SquarePlacementModifier.of(), HeightRangePlacementModifier.uniform(YOffset.fixed(min_height), YOffset.fixed(max_height))));
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE,	new Identifier(modid, name), ORE_FEATURE);
-		Registry.register(BuiltinRegistries.PLACED_FEATURE, new Identifier(modid, name), ORE_FEATURE_PLACED);
-		BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(modid, name)));
 	}
 
 	public static void registerItem(Item item, String name){

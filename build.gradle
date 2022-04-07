@@ -48,6 +48,12 @@ repositories {
         }
     }
 	maven {
+        url = "https://maven.saps.dev/minecraft"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
+	maven {
         url "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -60,6 +66,9 @@ repositories {
             includeGroup 'net.gudenau.minecraft'
         }
     }
+	flatDir {
+		dirs 'libs'
+	}
 }
 
 dependencies {
@@ -90,10 +99,16 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 		exclude(group: "com.terraformersmc")
 	}
+	//modImplementation("dev.latvian.mods:kubejs-fabric:1800.4.0-build.235") {
+    //    exclude(group: "net.fabricmc.fabric-api")
+    //}
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:8.+"
 	modApi "teamreborn:energy:2.+"
 	modImplementation "TechReborn:TechReborn-1.18:5.+"
 	modImplementation "net.gudenau.minecraft:MoreTags:3.0.3"
+	include modImplementation("io.github.feltmc:felt-ore-feature-api-v1:1.0.0"){}
+	//modImplementation "curse.maven:promenade-399648:3723580"
+	//modImplementation "curse.maven:modind-405388:3718118"
 	//modImplementation "curse.maven:bclib-495191:3637567"
 	//modImplementation "curse.maven:gateofbabylon-407500:3452626"
 }
