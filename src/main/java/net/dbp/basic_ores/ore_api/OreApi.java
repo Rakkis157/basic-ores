@@ -27,6 +27,7 @@ import net.minecraft.util.registry.*;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.*;
 
 public class OreApi {
@@ -50,7 +51,8 @@ public class OreApi {
 		registerStoneType("smooth_basalt", Blocks.SMOOTH_BASALT);
 		registerStoneType("calcite", Blocks.CALCITE);
 		registerOre("copper", Items.RAW_COPPER, 0xc78621);
-		registerGeneration("coppertest", "copper", -32, 32, 60, 20, 0.0f);
+		registerOre("iron", Items.RAW_IRON, 0xE0E0E0);
+		registerGeneration("coppertest", Biome.Category.DESERT, -64, 128, 200, 20, 0.0f, oreTypes.get("copper"), oreTypes.get("iron"));
 		registerOreBlocks();
 		registerOreGenerations();
 	}
@@ -81,18 +83,18 @@ public class OreApi {
 
 	public static void registerOreGenerations(){
 		for (Map.Entry<String, OreGeneration> oregeneration : oreGenerations.entrySet()){
-			OreFeatures.createOrePlacedFeature(Basic.modid, oregeneration.getKey(), (block, r) -> {
+			OreFeatures.createFilteredOrePlacedFeature(Basic.modid, oregeneration.getKey(), (block, r) -> {
 				BlockState ore = null;
 				for (Map.Entry<String, StoneType> stonetype : stoneTypes.entrySet()){
 					if (block == stonetype.getValue().block.getDefaultState()){
-						ore = oregeneration.getValue().oretype.oreBlocks.get(stonetype.getKey()).getDefaultState();
+						ore = oregeneration.getValue().oretypes[r.nextInt(oregeneration.getValue().oretypes.length)].oreBlocks.get(stonetype.getKey()).getDefaultState();
 					}
 				}
 
         	    if (ore == null) return null;
         	    //return r.nextBoolean() ? ore : ore2;
 				return ore;
-        	}, oregeneration.getValue().min, oregeneration.getValue().max, 60, 20, 0.0f, List.of(World.OVERWORLD));
+        	}, oregeneration.getValue().min, oregeneration.getValue().max, 60, 20, 0.0f, List.of(World.OVERWORLD), List.of(oregeneration.getValue().biome), List.of());
 		}
 	}
 
@@ -108,7 +110,7 @@ public class OreApi {
 		oreTypes.put(name, new OreType(name, item, color));
 	}
 
-	public static void registerGeneration(String name, String oretype, int min, int max, int weight, int size, float discard){
-		oreGenerations.put(name, new OreGeneration(name, oreTypes.get(oretype), min, max, weight, size, discard));
+	public static void registerGeneration(String name, Biome.Category biome, int min, int max, int weight, int size, float discard, OreType... oretypes){
+		oreGenerations.put(name, new OreGeneration(name, biome, min, max, weight, size, discard, oretypes));
 	}
 }
