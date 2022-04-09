@@ -52,7 +52,7 @@ public class OreApi {
 		registerStoneType("calcite", Blocks.CALCITE);
 		registerOre("copper", Items.RAW_COPPER, 0xc78621);
 		registerOre("iron", Items.RAW_IRON, 0xE0E0E0);
-		registerGeneration("coppertest", Biome.Category.DESERT, -64, 128, 200, 20, 0.0f, oreTypes.get("copper"), oreTypes.get("iron"));
+		registerGeneration("coppertest", Biome.Category.DESERT, -64, 128, 64, 20, 0.0f, oreTypes.get("copper"), oreTypes.get("iron"));
 		registerOreBlocks();
 		registerOreGenerations();
 	}
@@ -92,9 +92,8 @@ public class OreApi {
 				}
 
         	    if (ore == null) return null;
-        	    //return r.nextBoolean() ? ore : ore2;
 				return ore;
-        	}, oregeneration.getValue().min, oregeneration.getValue().max, 60, 20, 0.0f, List.of(World.OVERWORLD), List.of(oregeneration.getValue().biome), List.of());
+        	}, oregeneration.getValue().min, oregeneration.getValue().max, oregeneration.getValue().weight, oregeneration.getValue().size, oregeneration.getValue().discard, List.of(World.OVERWORLD), List.of(oregeneration.getValue().biome), List.of());
 		}
 	}
 
