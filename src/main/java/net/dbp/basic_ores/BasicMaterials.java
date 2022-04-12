@@ -236,12 +236,13 @@ public class BasicMaterials {
 				case "bow": BasicJson.registerItemModel(set.getKey()+"_"+Mat.name, "item/bow", set.getKey()); break;
 				case "shield": BasicJson.registerItemModel(set.getKey()+"_"+Mat.name, "fabricshieldlib:item/fabric_shield", set.getKey()); break;
 				case "sword": 
-				BasicJson.registerItemModel(set.getKey()+"_"+Mat.name, "item/generated", "teknologi:item/stick", set.getKey()); 
-				ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? Mat.color : -1, set.getValue());
+				BasicJson.registerItemModel(set.getKey()+"_"+Mat.name, "item/generated", "teknologi:item/stick", set.getKey());
+				//todo client color
+				//ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? Mat.color : -1, set.getValue());
 				break;
 				case "pickaxe": BasicJson.registerItemModel(set.getKey()+"_"+Mat.name, "item/generated", "teknologi:item/stick", set.getKey()); break;
 				default: BasicJson.registerItemModel(set.getKey()+"_"+Mat.name, "item/generated", set.getKey()); 
-				ColorProviderRegistry.ITEM.register((stack, tintIndex) -> Mat.color, set.getValue());
+				//ColorProviderRegistry.ITEM.register((stack, tintIndex) -> Mat.color, set.getValue());
 				break;
 			}
 			Basic.RESOURCE_PACK.addTag(new Identifier("c:items/"+Mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(Basic.modid+":"+set.getKey()+"_"+Mat.name)));
@@ -259,9 +260,10 @@ public class BasicMaterials {
 			else if (set.getKey() == "ore_deepslate") BasicJson.registerBlockModel(set.getKey()+"_"+Mat.name, Basic.modid+":block/ore", "minecraft:block/deepslate", "ore");
 			else
 				BasicJson.registerBlockModel(set.getKey()+"_"+Mat.name, "block/leaves", set.getKey());
-			ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> Mat.color, Mat.blockPartsBlocks.get(set.getKey()));
-			BlockRenderLayerMap.INSTANCE.putBlock(Mat.blockPartsBlocks.get(set.getKey()), RenderLayer.getCutout());
-			ColorProviderRegistry.ITEM.register((stack, tintIndex) -> Mat.color, set.getValue());
+			//todo client color provider
+			//ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> Mat.color, Mat.blockPartsBlocks.get(set.getKey()));
+			//BlockRenderLayerMap.INSTANCE.putBlock(Mat.blockPartsBlocks.get(set.getKey()), RenderLayer.getCutout());
+			//ColorProviderRegistry.ITEM.register((stack, tintIndex) -> Mat.color, set.getValue());
 			Basic.RESOURCE_PACK.addTag(new Identifier("c:items/"+Mat.name+"_"+set.getKey()+"s"), new JTag().add(new Identifier(Basic.modid+":"+set.getKey()+"_"+Mat.name)));
 			Basic.RESOURCE_PACK.addTag(new Identifier("c:items/"+set.getKey()+"s/"+Mat.name), new JTag().add(new Identifier(Basic.modid+":"+set.getKey()+"_"+Mat.name)));
 			Basic.RESOURCE_PACK.addLootTable(new Identifier(Basic.modid+":"+"blocks/"+set.getKey()+"_"+Mat.name), JLootTable.loot("minecraft:block").pool(new JPool().rolls(1).entry(new JEntry().type("minecraft:item").name(Basic.modid+":"+set.getKey()+"_"+Mat.name).condition("minecraft:survives_explosion"))));

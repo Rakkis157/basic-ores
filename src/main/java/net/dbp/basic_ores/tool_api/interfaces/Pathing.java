@@ -16,7 +16,7 @@ public interface Pathing {
         PlayerEntity playerEntity = context.getPlayer();
         BlockState blockState = world.getBlockState(blockPos);
         if (context.getSide() != Direction.DOWN) {
-            BlockState blockState2 = ShovelMixin.getPathed().get(blockState.getBlock());
+            BlockState blockState2 = getPathedState(context);
             BlockState blockState3 = null;
             if (blockState2 != null && world.getBlockState(blockPos.up()).isAir()) {
                 world.playSound(playerEntity, blockPos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0f, 1.0f);
@@ -36,5 +36,10 @@ public interface Pathing {
             return ActionResult.PASS;
         }
         return ActionResult.PASS;
+    }
+
+    public default BlockState getPathedState(ItemUsageContext context){
+        BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
+        return ShovelMixin.getPathed().get(blockState.getBlock());
     }
 }

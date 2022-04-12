@@ -15,7 +15,7 @@ public interface Tilling {
         World world = context.getWorld();
         PlayerEntity playerEntity = context.getPlayer();
         BlockPos blockPos = context.getBlockPos();
-        Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>> pair = HoeMixin.getTilled().get(world.getBlockState(blockPos).getBlock());
+        Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>> pair = getTilledPair(context);
         if (pair == null) return ActionResult.PASS;
         Predicate<ItemUsageContext> predicate = pair.getFirst();
         Consumer<ItemUsageContext> consumer = pair.getSecond();
@@ -28,5 +28,9 @@ public interface Tilling {
             return ActionResult.success(world.isClient);
         }
         return ActionResult.PASS;
+    }
+
+    public default Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>> getTilledPair(ItemUsageContext context){
+        return HoeMixin.getTilled().get(context.getWorld().getBlockState(context.getBlockPos()).getBlock());
     }
 }

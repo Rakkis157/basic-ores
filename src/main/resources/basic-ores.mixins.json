@@ -4,11 +4,11 @@
   "package": "net.dbp.basic_ores.tool_api.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-  ],
-  "client": [
     "AxeMixin",
     "ShovelMixin",
     "HoeMixin"
+  ],
+  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

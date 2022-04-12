@@ -10,7 +10,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 
-public class Paxel extends MiningToolItem implements Tilling, Pathing, Stripping{
+public class Paxel extends MiningToolItem implements Tilling, Pathing, Stripping, Torching{
     public Paxel(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
         super(attackDamage, attackSpeed, material, BlockTags.PICKAXE_MINEABLE, settings);
     }
@@ -32,12 +32,15 @@ public class Paxel extends MiningToolItem implements Tilling, Pathing, Stripping
         Optional<BlockState> optional = this.getStrippedState(blockState);
         Optional<BlockState> optional2 = Oxidizable.getDecreasedOxidationState(blockState);
         Optional<BlockState> optional3 = Optional.ofNullable((Block)HoneycombItem.WAXED_TO_UNWAXED_BLOCKS.get().get(blockState.getBlock())).map(block -> block.getStateWithProperties(blockState));
-        if (optional.isPresent() || optional2.isPresent() || optional3.isPresent()){
+        if (!playerEntity.isSneaking() && (optional.isPresent() || optional2.isPresent() || optional3.isPresent())){
             return strip(context);
-        } else if (playerEntity.isSneaking()){
+        } else if (playerEntity.isSneaking() && (getTilledPair(context) != null)){
             return till(context);
-        } else {
+        } else if (getPathedState(context) != null){
             return path(context);
+        } else if (canTorch(new ItemPlacementContext(context))){
+            return torch(context);
         }
+        return ActionResult.PASS;
     }
 }

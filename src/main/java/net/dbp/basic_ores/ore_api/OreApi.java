@@ -64,9 +64,10 @@ public class OreApi {
 				BlockItem item = new BlockItem(block, new Item.Settings());
 				Basic.registerBlock(item, block, blocktype.getKey()+"_"+oretype.getKey());
 				BasicJson.registerBlockModel(blocktype.getKey()+"_"+oretype.getKey(), Basic.modid+":block/ore", blocktype.getValue().textureLocation, "ore");
-				ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> oretype.getValue().color, block);
-				ColorProviderRegistry.ITEM.register((stack, tintIndex) -> oretype.getValue().color, item);
-				BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+				//todo client colors
+				//ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> oretype.getValue().color, block);
+				//ColorProviderRegistry.ITEM.register((stack, tintIndex) -> oretype.getValue().color, item);
+				//BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
 				oretype.getValue().oreBlocks.put(blocktype.getKey(), block);
 				oretype.getValue().oreItems.put(blocktype.getKey(), item);
 			}
