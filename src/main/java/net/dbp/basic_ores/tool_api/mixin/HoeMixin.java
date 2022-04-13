@@ -1,4 +1,4 @@
-package net.dbp.basic_ores.mixin;
+package net.dbp.basic_ores.tool_api.mixin;
 
 import java.util.Map;
 import java.util.function.*;
@@ -9,6 +9,6 @@ import net.minecraft.item.*;
 import com.mojang.datafixers.util.Pair;
 
 @Mixin(HoeItem.class)
-public interface hoehax {
+public interface HoeMixin {
     @Accessor("TILLING_ACTIONS") static Map<Block, Pair<Predicate<ItemUsageContext>, Consumer<ItemUsageContext>>> getTilled() { throw new AssertionError(); }
 }

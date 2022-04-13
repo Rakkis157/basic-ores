@@ -1,14 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.dbp.basic_ores.mixin",
+  "package": "net.dbp.basic_ores.tool_api.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "AxeMixin",
+    "ShovelMixin",
+    "HoeMixin"
   ],
   "client": [
-    "axehax",
-    "shovelhax",
-    "hoehax"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -4,12 +4,12 @@ import java.util.*;
 import com.github.crimsondawn45.fabricshieldlib.lib.object.FabricShieldItem;
 //import draylar.gateofbabylon.item.*;
 import draylar.magna.item.*;
+import net.dbp.basic_ores.tool_api.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.*;
-import net.dbp.basic_ores.tools.*;
 
 public class BasicMaterial {
     public final HashMap<String, Item> itemParts = new HashMap<>();
@@ -139,22 +139,22 @@ public class BasicMaterial {
 					this.itemParts.put(part, new ExcavatorItem(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "axe":
-					this.itemParts.put(part, new axe(new ToolMat(), 6, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Axe(new ToolMat(), 6, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "hoe":
-					this.itemParts.put(part, new hoe(new ToolMat(), 0, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Hoe(new ToolMat(), 0, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "pickaxe":
-					this.itemParts.put(part, new pick(new ToolMat(), 1, -2.8f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Pickaxe(new ToolMat(), 1, -2.8f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "shovel":
-					this.itemParts.put(part, new shovel(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Shovel(new ToolMat(), 1, -3.0f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "sword":
-					this.itemParts.put(part, new sword(new ToolMat(), 3, -2.4f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Sword(new ToolMat(), 3, -2.4f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "shear":
-					if (Basic.moreTagsCompat || Basic.bclibCompat) this.itemParts.put(part, new shear(new Item.Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
+					if (Basic.moreTagsCompat || Basic.bclibCompat) this.itemParts.put(part, new Shear(new Item.Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
 				break;
 				case "fishingrod":
 					this.itemParts.put(part, new FishingRodItem(new Item.Settings().group(ItemGroup.MISC).maxDamage(magicNumber2*magicNumber2*magicNumber2*60)));
@@ -178,7 +178,7 @@ public class BasicMaterial {
 					this.itemParts.put(part, new ArmorItem(new ArmorMat(), EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "paxel":
-					this.itemParts.put(part, new paxel(new ToolMat(), 1, -2.8f, new Item.Settings().group(ItemGroup.MISC)));
+					this.itemParts.put(part, new Paxel(new ToolMat(), 1, -2.8f, new Item.Settings().group(ItemGroup.MISC)));
 				break;
 				case "dagger":
 					//this.itemParts.put(part, new DaggerItem(new ToolMat(), 0.5f, -1.0f, new Item.Settings().group(ItemGroup.MISC)));
